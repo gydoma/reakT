@@ -1,0 +1,45 @@
+// Imports
+@import 'mixins';
+
+
+// Button Styles
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    @include transition(background-color, 200ms);
+    border: none;
+    border-radius: 10px;
+    color: $background-color;
+
+    &#start {
+      background-color: $button-start-color;
+
+      &:hover {
+        background-color: $button-start-hover;
+      }
+
+      &:active {
+        background-color: $button-start-active;
+      }
+    }
+
+    &#stop {
+      background-color: $button-stop-color;
+
+      &:hover {
+        background-color: $button-stop-hover;
+      }
+
+      &:active {
+        background-color: $button-stop-active;
+      }
+    }
+  }
+}

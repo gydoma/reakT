@@ -1,0 +1,50 @@
+// Import modules
+@import 'mixins';
+@import 'arrows';
+@import 'buttons';
+@import 'leaderboard';
+
+// Color Variables
+$background-color: #282c34;
+$text-color: #abb2bf;
+
+// Styles
+body {
+  @include flex-center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+}
+
+.container {
+  @include flex-center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.display {
+  font-size: 2em;
+  margin-bottom: 20px;
+  @include transition(color, 200ms);
+}
+
+.countdown {
+  font-size: 2em;
+  margin: 20px 0;
+}
+
+.hidden {
+  display: none;
+}
+
+#nameInput {
+  padding: 10px;
+  font-size: 1em;
+  border: 2px solid $arrow-border-color;
+  border-radius: 10px;
+  background-color: $arrow-background-color;
+  color: $text-color;
+  margin-top: 20px;
+}

@@ -1,0 +1,29 @@
+// !Variables
+
+// == Default Color Variables ===
+$background-color: #282c34;
+$text-color: #abb2bf;
+$arrow-background-color: #3e4451;
+$arrow-border-color: #4b5263;
+$arrow-pressed-color: #2c313a;
+$text-color: #abb2bf;
+// --- Button Specific Colors ---
+$button-start-color: #98c379;
+$button-start-hover: #8ab367;
+$button-start-active: #7ca55b;
+$button-stop-color: #e06c75;
+$button-stop-hover: #d05c65;
+$button-stop-active: #c04c55;
+// ------------------------------
+
+// !Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//? tf is this
+@mixin transition($property, $duration) {
+  transition: $property $duration;
+}

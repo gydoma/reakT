@@ -1,0 +1,51 @@
+.leaderboard-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: $button-start-color;
+  color: $text-color;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  @include transition(background-color, 200ms);
+
+  &:hover {
+    background-color: $button-start-hover;
+  }
+
+  &:active {
+    background-color: $button-start-active;
+  }
+}
+
+.leaderboard-container {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  background-color: $background-color;
+  border: 2px solid $arrow-border-color;
+  border-radius: 10px;
+  padding: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;
+
+  &.hidden {
+    display: none;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 10px;
+      border: 1px solid $arrow-border-color;
+    }
+
+    th {
+      background-color: $arrow-background-color;
+    }
+  }
+}
