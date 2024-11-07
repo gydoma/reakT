@@ -2,6 +2,14 @@
 // TODO: make the game more customizable - eg. time limit, custom modes like 
 // TODO: (Tricky Colors | Color Namer | basic-numbers), etc.
 
+// TODO: make the game more visually appealing - eg. animations, better UI, etc.
+// TODO: scoreboard btn
+
+// TODO: check and x emojis popping up like a confetti when you get it right or wrong
+
+// TODO: a more appaling way to display the leaderboard - maybe a modal or a table with a scrollbar
+// TODO: more hover effects on the buttons
+
 const directions = ["UP", "DOWN", "LEFT", "RIGHT"];
 let currentDirection = "";
 let correctAttempts = 0;
@@ -22,6 +30,7 @@ const leaderboardButton = document.getElementById("leaderboardButton");
 const leaderboardContainer = document.getElementById("leaderboardContainer");
 const leaderboardTableBody = document.querySelector("#leaderboardTable tbody");
 const nameInput = document.getElementById("nameInput");
+
 
 
 // !
@@ -100,7 +109,12 @@ function finalizeScore() {
     stopGame();
     const averageReactionTime = totalAttempts > 0 ? (totalReactionTime / totalAttempts).toFixed(2) : 0;
     const accuracyPercentage = totalAttempts > 0 ? (correctAttempts / totalAttempts * 100).toFixed(2) : 0;
-    const calculatedScore = Math.ceil((correctAttempts / totalAttempts) * averageReactionTime);
+    
+    //! Score calculation - make function for this
+    const incorrectAttempts = totalAttempts - correctAttempts;
+    if (incorrectAttempts < 0) incorrectAttempts = 1;
+    const calculatedScore = Math.ceil((totalAttempts + correctAttempts) / (incorrectAttempts*(averageReactionTime/100)));
+    
     directionDisplay.textContent = `${correctAttempts} / ${totalAttempts}, AP: ${accuracyPercentage}%, ART: ${averageReactionTime} ms, Score: ${calculatedScore}`;
     hintDisplay.classList.remove("hidden");
     if (calculatedScore > 0) {
