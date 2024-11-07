@@ -69,26 +69,50 @@
   background-color: #c04c55;
 }
 
-.leaderboard {
-  width: 100%;
-  max-width: 600px;
-  margin-top: 20px;
-  border-collapse: collapse;
-  background-color: #282c34;
+.leaderboard-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #98c379;
   color: #abb2bf;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 200ms;
+}
+.leaderboard-button:hover {
+  background-color: #8ab367;
+}
+.leaderboard-button:active {
+  background-color: #7ca55b;
+}
+
+.leaderboard-container {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  background-color: #282c34;
   border: 2px solid #4b5263;
   border-radius: 10px;
+  padding: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;
 }
-.leaderboard th, .leaderboard td {
+.leaderboard-container.hidden {
+  display: none;
+}
+.leaderboard-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.leaderboard-container table th, .leaderboard-container table td {
   padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #4b5263;
+  border: 1px solid #4b5263;
 }
-.leaderboard th {
+.leaderboard-container table th {
   background-color: #3e4451;
-}
-.leaderboard tr:nth-child(even) {
-  background-color: #2c313a;
 }
 
 body {
@@ -134,5 +158,3 @@ body {
   color: #abb2bf;
   margin-top: 20px;
 }
-
-/*# sourceMappingURL=style.css.map */

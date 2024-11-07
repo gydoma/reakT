@@ -11,11 +11,18 @@ let countdownInterval;
 let startTime;
 let totalReactionTime = 0;
 
+// ! DOM elements
 const directionDisplay = document.getElementById("direction");
 const startButton = document.getElementById("start");
 const stopButton = document.getElementById("stop");
 const countdownDisplay = document.getElementById("countdown");
 const hintDisplay = document.getElementById("hint");
+// leaderboard stuff
+const leaderboardButton = document.getElementById("leaderboardButton");
+const leaderboardContainer = document.getElementById("leaderboardContainer");
+const leaderboardTableBody = document.querySelector("#leaderboardTable tbody");
+const nameInput = document.getElementById("nameInput");
+// !
 
 const arrowElements = {
     ArrowUp: document.querySelector(".arrow.up"),
@@ -24,18 +31,12 @@ const arrowElements = {
     ArrowRight: document.querySelector(".arrow.right")
 };
 
-const leaderboardButton = document.getElementById("leaderboardButton");
-const leaderboardContainer = document.getElementById("leaderboardContainer");
-const leaderboardTableBody = document.querySelector("#leaderboardTable tbody");
-const nameInput = document.getElementById("nameInput");
-
 leaderboardButton.addEventListener("click", () => {
     leaderboardContainer.classList.toggle("hidden");
     loadLeaderboard();
 });
 
 function saveScore(name, points) {
-    //? i wrote this code, and iam the only one who don't know what is going on here
     const dateTime = new Date().toISOString().replace("T", " ").split(".")[0];
     const leaderboard = getCookie("leaderboard") ? JSON.parse(getCookie("leaderboard")) : [];
     leaderboard.push({ name, dateTime, points });
@@ -93,19 +94,21 @@ function startGame() {
     nextDirection();
 }
 
-// TODO: make stopSafe function
+function finalizeScore() {
+    stopGame();
+    const averageReactionTime = totalAttempts > 0 ? (totalReactionTime / totalAttempts).toFixed(2) : 0;
+    const accuracyPercentage = totalAttempts > 0 ? (correctAttempts / totalAttempts * 100).toFixed(2) : 0;
+    const calculatedScore = Math.ceil((correctAttempts / totalAttempts) * averageReactionTime);
+    directionDisplay.textContent = `${correctAttempts} / ${totalAttempts}, AP: ${accuracyPercentage}%, ART: ${averageReactionTime} ms, Score: ${calculatedScore}`;
+    hintDisplay.classList.remove("hidden");
+    if (calculatedScore > 0) {
+        saveScore(nameInput.value || "anonymous", calculatedScore);
+    }
+}
 
 function stopGame() {
     gameActive = false;
     clearInterval(countdownInterval);
-    const averageReactionTime = totalAttempts > 0 ? (totalReactionTime / totalAttempts).toFixed(2) : 0;
-    //op: 0.00%
-    const accuracyPercentage = totalAttempts > 0 ? (correctAttempts / totalAttempts * 100).toFixed(2) : 0;
-    //!tf+r
-    const calculatedPoints = (correctAttempts / totalAttempts) * averageReactionTime;
-    directionDisplay.textContent = `${correctAttempts} / ${totalAttempts}, AP: ${accuracyPercentage}%, ART: ${averageReactionTime} ms`;
-    hintDisplay.classList.remove("hidden");
-    saveScore(nameInput.value || "anonymous", calculatedPoints);
 }
 
 function nextDirection() {
@@ -155,7 +158,7 @@ function startCountdown() {
         if (timeLeft <= 0) {
             clearInterval(countdownInterval);
             countdownDisplay.textContent = "Time's up!";
-            stopGame();
+            finalizeScore();
         }
     }, 10);
 }
@@ -165,11 +168,15 @@ function handleControlKeyPress(event) {
         stopGame();
         startGame();
     } else if (event.key === "Escape") {
-        stopGame();
+        finalizeScore();
+        countdownDisplay.textContent = "Game stopped manually!";
+    } else if (event.key === "l") {
+        leaderboardContainer.classList.toggle("hidden");
+        loadLeaderboard();
     }
 }
 
 startButton.addEventListener("click", startGame);
-stopButton.addEventListener("click", stopGame);
+stopButton.addEventListener("click", finalizeScore);
 window.addEventListener("keydown", handleKeyPress);
 window.addEventListener("keydown", handleControlKeyPress);
