@@ -23,7 +23,6 @@ const leaderboardContainer = document.getElementById("leaderboardContainer");
 const leaderboardTableBody = document.querySelector("#leaderboardTable tbody");
 const nameInput = document.getElementById("nameInput");
 
-
 // !
 
 const arrowElements = {
